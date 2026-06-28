@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assisting Ajil | Нүүр</title>
+<meta name="description" content="Assisting Ajil бол Монголын бүтээлч салбарын уран бүтээлчид, бизнесүүдийг ажил, боломжтой холбодог олон нийтийн платформ.">
+<meta property="og:title" content="Assisting Ajil | Нүүр">
+<meta property="og:description" content="Монголын бүтээлч салбарын уран бүтээлчид, бизнесүүдийг холбоно.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Anton&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#000000;
+    --bg:#0A0A0A;
+    --neon:#D4FF00;
+    --white:#FFFFFF;
+    --grid:rgba(255,255,255,0.06);
+    --muted:rgba(255,255,255,0.55);
+    --card:#121212;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--white);
+    font-family:'Montserrat',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  .grid-bg{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:48px 48px;
+  }
+  .wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 24px}
+  .display{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:0.5px;font-weight:400;line-height:0.95}
+  .neon{color:var(--neon)}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(10,10,10,0.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.08)}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .logo{font-family:'Anton',sans-serif;font-size:22px;text-transform:uppercase;letter-spacing:1px;color:var(--white);text-decoration:none}
+  .logo span{color:var(--neon)}
+  .nav-links{display:flex;gap:22px;align-items:center}
+  .nav-links a{color:var(--white);text-decoration:none;font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:0.5px;transition:color .2s}
+  .nav-links a:hover{color:var(--neon)}
+  .nav-cta{background:var(--neon);color:var(--black)!important;padding:9px 16px;border-radius:2px}
+  .burger{display:none;background:none;border:none;color:var(--white);font-size:26px;cursor:pointer}
+
+  /* HERO */
+  .hero{padding:90px 0 70px;text-align:center;position:relative}
+  .hero h1{font-size:clamp(48px,9vw,108px)}
+  .hero .sub{margin-top:22px;font-size:clamp(16px,2.2vw,21px);color:var(--muted);max-width:640px;margin-left:auto;margin-right:auto}
+  .hero-cta{margin-top:38px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-block;padding:14px 26px;border-radius:2px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;font-size:14px;text-decoration:none;cursor:pointer;transition:transform .15s,background .2s,color .2s;border:2px solid var(--neon)}
+  .btn-solid{background:var(--neon);color:var(--black)}
+  .btn-solid:hover{transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--neon)}
+  .btn-ghost:hover{background:var(--neon);color:var(--black)}
+
+  /* STATS */
+  .stats{padding:50px 0;border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08)}
+  .stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;text-align:center}
+  .stat .num{font-family:'Anton',sans-serif;font-size:clamp(30px,4vw,46px);color:var(--neon);line-height:1}
+  .stat .lbl{margin-top:8px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+
+  /* SECTION */
+  section.block{padding:80px 0}
+  .eyebrow{display:inline-block;font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--neon);font-weight:700;margin-bottom:14px}
+  h2.sec{font-size:clamp(34px,6vw,64px)}
+  .lead{margin-top:20px;font-size:clamp(16px,2vw,19px);color:var(--muted);max-width:720px}
+
+  /* MISSION two-col */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .mission p{margin-top:18px;color:var(--muted);font-size:17px}
+
+  /* NEWSLETTER */
+  .news{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:42px}
+  .news h3{font-family:'Anton',sans-serif;font-size:clamp(26px,4vw,40px);text-transform:uppercase}
+  .news form{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+  .news input{flex:1;min-width:220px;padding:15px 16px;background:var(--black);border:1px solid rgba(255,255,255,0.15);border-radius:2px;color:var(--white);font-family:inherit;font-size:15px}
+  .news input:focus{outline:none;border-color:var(--neon)}
+  .news .terms{margin-top:14px;font-size:13px;color:var(--muted)}
+  .news .terms a{color:var(--neon)}
+  .form-msg{margin-top:14px;font-weight:600;display:none}
+
+  /* CARDS / tiers */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:30px;position:relative;transition:border-color .2s,transform .2s}
+  .card:hover{border-color:var(--neon);transform:translateY(-4px)}
+  .card .price{position:absolute;top:22px;right:24px;font-family:'Caveat',cursive;background:var(--white);color:var(--black);padding:3px 12px;border-radius:2px;font-weight:700;font-size:15px;transform:rotate(4deg)}
+  .card h4{font-family:'Anton',sans-serif;font-size:26px;text-transform:uppercase;color:var(--neon)}
+  .card ul{margin-top:18px;list-style:none}
+  .card li{padding:9px 0 9px 26px;position:relative;color:var(--white);font-size:15px;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .card li:last-child{border-bottom:none}
+  .card li::before{content:"";position:absolute;left:0;top:16px;width:11px;height:11px;background:var(--neon);border-radius:50%}
+
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px}
+  .step{padding:28px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;background:var(--card)}
+  .step .n{font-family:'Anton',sans-serif;font-size:42px;color:var(--neon);line-height:1}
+  .step h4{margin-top:10px;font-size:19px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+  .step p{margin-top:10px;color:var(--muted);font-size:15px}
+
+  /* TESTIMONIALS */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px}
+  .quote{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-left:3px solid var(--neon);border-radius:4px;padding:26px}
+  .quote p{font-size:16px;font-style:italic;color:var(--white)}
+  .quote .who{margin-top:16px;color:var(--neon);font-weight:700;font-size:14px}
+
+  /* FAQ */
+  .faq{margin-top:40px;max-width:860px}
+  .acc{border-bottom:1px solid rgba(255,255,255,0.1)}
+  .acc-q{width:100%;text-align:left;background:none;border:none;color:var(--white);font-family:inherit;font-size:18px;font-weight:600;padding:22px 40px 22px 0;cursor:pointer;position:relative}
+  .acc-q::after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);color:var(--neon);font-size:26px;transition:transform .2s}
+  .acc.open .acc-q::after{content:"–"}
+  .acc-a{max-height:0;overflow:hidden;transition:max-height .3s ease;color:var(--muted);font-size:15px}
+  .acc-a .inner{padding:0 0 22px}
+  .acc-a strong{color:var(--white)}
+
+  /* TRUSTED */
+  .trusted{text-align:center}
+  .logos{margin-top:34px;display:flex;flex-wrap:wrap;justify-content:center;gap:30px 50px;align-items:center}
+  .logos span{font-family:'Oswald',sans-serif;font-weight:600;font-size:20px;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+
+  /* FOOTER */
+  footer{border-top:1px solid rgba(255,255,255,0.1);padding:54px 0 40px;margin-top:40px}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+  .foot-links{display:flex;gap:24px;flex-wrap:wrap}
+  .foot-links a{color:var(--white);text-decoration:none;font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:0.5px}
+  .foot-links a:hover{color:var(--neon)}
+  .copy{margin-top:30px;color:var(--muted);font-size:13px;text-align:center}
+
+  @media(max-width:900px){
+    .stats-grid{grid-template-columns:repeat(2,1fr);gap:34px 20px}
+    .two{grid-template-columns:1fr;gap:34px}
+    .cards,.steps,.quotes{grid-template-columns:1fr}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);flex-direction:column;padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.1)}
+    .nav-links.show{display:flex}
+    .burger{display:block}
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">ASSISTING<span>AJIL</span></a>
+    <button class="burger" aria-label="Цэс" onclick="document.getElementById('navlinks').classList.toggle('show')">☰</button>
+    <div class="nav-links" id="navlinks">
+      <a href="#zar">Зар тавих</a>
+      <a href="#tier">Гишүүнчлэл</a>
+      <a href="#faq">Асуулт хариулт</a>
+      <a href="https://instagram.com" target="_blank" rel="noopener">Дагах</a>
+      <a href="#news" class="nav-cta">Бүртгүүлэх</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <h1 class="display">Уран бүтээлч &amp;<br>бизнесийг <span class="neon">холбоно</span></h1>
+    <p class="sub">Assisting Ajil бол Монголын бүтээлч салбарын уран бүтээлчдийг ажил, боломжтой холбодог олон нийтийн платформ. Бид өдөр бүр Instagram story-гоор шинэ боломжуудыг хуваалцдаг.</p>
+    <div class="hero-cta">
+      <a href="#zar" class="btn btn-solid">Зар тавих</a>
+      <a href="#news" class="btn btn-ghost">Мэдээлэл авах</a>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat"><div class="num">160k+</div><div class="lbl">Дагагч</div></div>
+      <div class="stat"><div class="num">58k+</div><div class="lbl">Хуваалцсан боломж</div></div>
+      <div class="stat"><div class="num">2000+</div><div class="lbl">Сарын пост</div></div>
+      <div class="stat"><div class="num">8сая+</div><div class="lbl">Сарын үзэлт</div></div>
+      <div class="stat"><div class="num">10k+</div><div class="lbl">Хүлээлгийн жагсаалт</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="block">
+  <div class="wrap">
+    <div class="two mission">
+      <div>
+        <span class="eyebrow">Бидний тухай</span>
+        <h2 class="sec display">Уран бүтээлчдэд<br>зориулж бүтээв</h2>
+      </div>
+      <div>
+        <p>Assisting Ajil бол бүтээлч салбарын мэргэжилтнүүдээр удирдуулсан, олон нийтэд суурилсан платформ. Бид зураачид, дизайнерууд, гэрэл зурагчид, стайлистууд болон бусад уран бүтээлчдийг ажил олгогчидтой холбодог.</p>
+        <p>Бид өдөр бүр Instagram story-гоор боломжуудыг хуваалцдаг. Хамгийн сүүлийн зарыг харахын тулд хуудсыг маань дагаарай.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="block" id="news">
+  <div class="wrap">
+    <div class="news">
+      <h3>Сарын мэдээлэл хүлээн ав</h3>
+      <p style="color:var(--muted);margin-top:8px">Шинэ боломж, контентыг хамгийн түрүүнд цахим шуудангаар аваарай.</p>
+      <form onsubmit="return subscribe(event)">
+        <input type="text" placeholder="Таны нэр" required>
+        <input type="email" placeholder="И-мэйл хаяг" required>
+        <button type="submit" class="btn btn-solid">Бүртгүүлэх</button>
+      </form>
+      <p class="terms">Бүртгүүлэх товчийг дарснаар та манай <a href="#">Үйлчилгээний нөхцөл</a>-ийг зөвшөөрч байгаагаа баталгаажуулна.</p>
+      <p class="form-msg" id="newsMsg">Баярлалаа! Таны бүртгэл хүлээн авлаа.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO POST -->
+<section class="block" id="zar">
+  <div class="wrap">
+    <span class="eyebrow">Зар тавих</span>
+    <h2 class="sec display">Хэрхэн зар<br>тавих вэ?</h2>
+    <p class="lead">Зар тавих хамгийн хялбар арга нь Instagram story дээрээ тавьж биднийг таглах явдал. Эсвэл нийтэд харагдуулахыг хүсэхгүй бол хувийн зар тавьж болно.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="n">01</div>
+        <h4>Story дээрээ тавь</h4>
+        <p>Зараа Instagram story дээрээ тавьж <strong style="color:var(--neon)">@assisting_ajil</strong>-ийг тодорхой таглаарай.</p>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <h4>Бид дахин нийтэлнэ</h4>
+        <p>Бид таны story-г олон нийтэд дахин нийтэлж, захиалагчдад шууд хуваалцана.</p>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <h4>Хувиар тавих</h4>
+        <p>Нийтэд харагдуулахыг хүсэхгүй бол зараа шууд илгээгээрэй, бид таны өмнөөс нийтэлнэ.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="block">
+  <div class="wrap">
+    <div class="two">
+      <div>
+        <span class="eyebrow">Шалгах жагсаалт</span>
+        <h2 class="sec display">Зартаа эдгээрийг<br>оруулаарай</h2>
+        <p class="lead">Зараа засварлахгүйн тулд нийтлэхээсээ өмнө дараах мэдээллийг бүрэн оруулаарай.</p>
+      </div>
+      <div class="card" style="transform:none">
+        <ul>
+          <li>Мэргэжил — хэнийг хайж байна?</li>
+          <li>Ямар ажил вэ?</li>
+          <li>Цалинтай / зардал / цалингүй</li>
+          <li>Байршил</li>
+          <li>Огноо</li>
+          <li>Холбоо барих</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section class="block" id="tier">
+  <div class="wrap">
+    <span class="eyebrow">Гишүүнчлэл</span>
+    <h2 class="sec display">Өөрт тохирохоо сонго</h2>
+    <p class="lead">Instagram-аар зар тавих, боломжуудыг үзэх нь үргэлж үнэгүй. Илүү боломжийг хүсвэл гишүүнчлэлээ сонгоорой.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="price">Үнэгүй</div>
+        <h4>Бүртгэл</h4>
+        <ul>
+          <li>Танд тохирсон хамтын ажиллагааны мэдэгдэл</li>
+          <li>Цалинтай ажлын хоёр дахь сонголт</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="price">Гишүүн</div>
+        <h4>Гишүүнчлэл</h4>
+        <ul>
+          <li>Бүх цалинтай ажлын эхний сонголт</li>
+          <li>Тест, хувийн төслийн кастинг тавих</li>
+          <li>Дуудлага хуваалцах</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="price">Бизнес</div>
+        <h4>Бизнес</h4>
+        <ul>
+          <li>Нууцаар тавих — бид таны өмнөөс нийтэлнэ</li>
+          <li>Ажлыг уран бүтээлчдэд шууд хүргэх</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:24px;color:var(--muted);font-size:14px;font-style:italic">* Үнийн санал удахгүй нэмэгдэнэ.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="block">
+  <div class="wrap">
+    <span class="eyebrow">Сэтгэгдэл</span>
+    <h2 class="sec display">Тэд юу гэж хэлдэг вэ</h2>
+    <div class="quotes">
+      <div class="quote">
+        <p>"Энэ платформ хүмүүст холбогдох, хамтран ажиллах, карьераа хөгжүүлэх бодит боломжийг бий болгосон."</p>
+        <div class="who">@user_one</div>
+      </div>
+      <div class="quote">
+        <p>"Assisting Ajil байгаагүй бол би сүүлийн жилүүдэд хийсэн гайхалтай ажлуудаа бүтээж чадахгүй байсан байх."</p>
+        <div class="who">@user_two</div>
+      </div>
+      <div class="quote">
+        <p>"Уран бүтээлчидтэй холбогдох, тэднийг олох энэ платформоос илүү сайн зүйл байхгүй. Шилдэг хуудас!"</p>
+        <div class="who">@user_three</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block" id="faq">
+  <div class="wrap">
+    <span class="eyebrow">Асуулт хариулт</span>
+    <h2 class="sec display">Түгээмэл асуултууд</h2>
+    <div class="faq">
+      <div class="acc">
+        <button class="acc-q">Assisting Ajil-ийг үнэгүй ашиглаж болох уу?</button>
+        <div class="acc-a"><div class="inner">Тийм, Instagram-аар зар тавих, боломжуудыг үзэх нь үргэлж үнэгүй байх болно. Илүү боломж авахыг хүсвэл гишүүнчлэлээ сонгож болно.</div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-q">Assisting Ajil-ийг хэн ажиллуулдаг вэ?</button>
+        <div class="acc-a"><div class="inner">Assisting Ajil-ийг салбартаа ажиллаж байсан бүтээлч мэргэжилтнүүд үүсгэн байгуулсан. Энэ платформ нь олон нийтэд зориулж, олон нийтийн хүчээр бүтсэн.</div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-q">Зараа хэрхэн хуваалцах вэ?</button>
+        <div class="acc-a"><div class="inner">Ажил эсвэл боломжоо хуваалцахын тулд зүгээр л зараа Instagram story дээрээ тавьж <strong>@assisting_ajil</strong>-ийг тодорхой таглаарай, бид таны story-г олон нийтэд дахин нийтэлнэ.</div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-q">Та нар юу дахин нийтэлдэг вэ?</button>
+        <div class="acc-a"><div class="inner">Бид дүрэм журамд нийцсэн, шалгах жагсаалтын бүх мэдээллийг агуулсан бүтээлч салбарын ажил, боломжуудыг дахин нийтэлдэг.</div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-q">Арилжааны ажил цалинтай байх ёстой юу?</button>
+        <div class="acc-a"><div class="inner">Тийм. Үйлчлүүлэгч, брэнд, бизнесийн бүх ажлыг бид арилжааны гэж үздэг тул цалинтай байх ёстой. Төсөв бага эсвэл бэлэг хэлбэрээр төлбөр санал болгож байгаа бол постдоо тодорхой бичээрэй.</div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-q">Гишүүнчлэлээ цуцалж болох уу?</button>
+        <div class="acc-a"><div class="inner">Тийм, та гишүүнчлэлээ хүссэн үедээ цуцалж болно. Мэдээллээ манай и-мэйл рүү илгээгээрэй.</div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-q">Assisting Ajil зөвхөн Монголд ажилладаг уу?</button>
+        <div class="acc-a"><div class="inner">Бид Монголын бүтээлч салбарт төвлөрдөг ч олон улсын боломжуудыг бас хуваалцдаг.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUSTED -->
+<section class="block trusted">
+  <div class="wrap">
+    <span class="eyebrow">Хамтрагчид</span>
+    <div class="logos">
+      <span>Брэнд 1</span><span>Брэнд 2</span><span>Брэнд 3</span><span>Брэнд 4</span><span>Брэнд 5</span>
+    </div>
+    <p style="margin-top:20px;color:var(--muted);font-size:14px;font-style:italic">* Хамтрагч брэндийн логонууд энд орно.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <a href="#" class="logo">ASSISTING<span>AJIL</span></a>
+      <div class="foot-links">
+        <a href="#">Нүүр</a>
+        <a href="#zar">Зар тавих</a>
+        <a href="#tier">Гишүүнчлэл</a>
+        <a href="#faq">Асуулт хариулт</a>
+        <a href="https://instagram.com" target="_blank" rel="noopener">Дагах</a>
+      </div>
+    </div>
+    <p class="copy">© 2026 Assisting Ajil. Бүх эрх хуулиар хамгаалагдсан. · assistingajil.com</p>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.acc-q').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var acc = btn.parentElement;
+      var a = acc.querySelector('.acc-a');
+      var isOpen = acc.classList.contains('open');
+      if(isOpen){ acc.classList.remove('open'); a.style.maxHeight = null; }
+      else { acc.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+  // Newsletter (demo only)
+  function subscribe(e){
+    e.preventDefault();
+    document.getElementById('newsMsg').style.display = 'block';
+    e.target.reset();
+    return false;
+  }
+  // Close mobile menu on link click
+  document.querySelectorAll('#navlinks a').forEach(function(a){
+    a.addEventListener('click', function(){ document.getElementById('navlinks').classList.remove('show'); });
+  });
+</script>
+</body>
+</html>
